@@ -63,10 +63,14 @@ namespace challengeAbmUsuariosNet5.WebApp.Controllers
                     if (nuevoUsuario.Id > 0)
                     {
                         await _usuariosServicio.UpdateUsuario(nuevoUsuario);
+                        TempData["mensaje"] = "usuario actualizado correctamente";
+
                     }
                     else
                     {
                         await _usuariosServicio.InsertUsuario(nuevoUsuario);
+                        TempData["mensaje"] = "usuario creado correctamente";
+
                     }
                 }
 
@@ -85,6 +89,8 @@ namespace challengeAbmUsuariosNet5.WebApp.Controllers
             try
             {
                 await _usuariosServicio.Delete(id);
+                TempData["mensaje"] = "usuario eliminado correctamente";
+
             }
             catch (Exception e)
             {
@@ -100,6 +106,7 @@ namespace challengeAbmUsuariosNet5.WebApp.Controllers
             try
             {
                 await _usuariosServicio.ReActivar(id);
+
             }
             catch (Exception e)
             {

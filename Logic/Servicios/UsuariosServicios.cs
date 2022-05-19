@@ -96,6 +96,7 @@ namespace Logic.Servicios
 
             _unitOfWork.UsuarioRepository.ReActivar(entidad);
             await _unitOfWork.SaveChangesAsync();
+
         }
     }
 }
