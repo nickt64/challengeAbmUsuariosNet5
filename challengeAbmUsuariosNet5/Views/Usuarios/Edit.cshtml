@@ -1,0 +1,82 @@
+﻿@model Shared.Dtos.NuevoUsuarioDto
+@{
+    ViewData["Title"] = "Usuario";
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-12">
+            @if (Model.Id > 0)
+            {
+                <h3>Edicion Usuario</h3>
+            }
+            else
+            {
+                <h3>Creacion Usuario</h3>
+            }
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+
+            @using (Html.BeginForm("Edit", "Usuarios", FormMethod.Post, new { @class = "container" }))
+            {
+                @Html.ValidationSummary(false, "", new { @class="text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Nombre, new { @class="control-label" })
+                    @Html.TextBoxFor(x => x.Nombre, new { @class="form-control" })
+                    @Html.ValidationMessageFor(x => x.Nombre, "", new { @class="text-danger"})
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Apellido, new { @class="control-label" })
+                    @Html.TextBoxFor(x => x.Apellido, new { @class="form-control" })
+                    @Html.ValidationMessageFor(x => x.Apellido, "", new { @class="text-danger"})
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.UserName, new { @class="control-label" })
+                    @Html.TextBoxFor(x => x.UserName, new { @class="form-control" })
+                    @Html.ValidationMessageFor(x => x.UserName, "", new { @class="text-danger"})
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Email, new { @class="control-label" })
+                    @Html.TextBoxFor(x => x.Email, new { @class="form-control" })
+                    @Html.ValidationMessageFor(x => x.Email, "", new { @class="text-danger"})
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Telefono, new { @class="control-label" })
+                    @Html.TextBoxFor(x => x.Telefono, new { @class="form-control" })
+                    @Html.ValidationMessageFor(x => x.Telefono, "", new { @class="text-danger"})
+                </div>
+
+                <div class="form-group mt-1">
+
+                    <input type="submit" value="@(Model.Id > 0 ? "Guardar" : "Crear")" class="btn btn-primary flex-column" />
+
+                    @if (Model.Id > 0 && Model.Borrado)
+                    {
+                        @using (Html.BeginForm("ReActivar", "Usuarios", new { Id = Model.Id }, FormMethod.Post))
+                        {
+                            <input type="submit" value="Re-Activar" class="btn btn-warning flex-column" />
+                        }
+                    }
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
